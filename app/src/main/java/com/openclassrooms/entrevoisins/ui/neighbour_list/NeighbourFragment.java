@@ -56,6 +56,7 @@ public class NeighbourFragment extends Fragment {
         return view;
     }
 
+
     /**
      * Init the List of neighbours
      */

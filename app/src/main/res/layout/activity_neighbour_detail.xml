@@ -176,7 +176,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="10dp"
-                android:text="Bonjour, je souhaiterai faire de la marche nordique. Pas initiée,  je recherche une ou plusieurs personnes pour blablabla"
+                android:text="Bonjour, je souhaiterai faire de la marche nordique. Pas initiée,  je recherche une ou plusieurs personnes pour m'accompagner! J'aime les jeux de cartes tels que la belotte ou le tarot."
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

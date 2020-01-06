@@ -2,7 +2,6 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,11 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
 
+    //constants for the method putExtra()
+    public static final String BUNDLE_EXTRA_ID = "BUNDLE_EXTRA_ID";
+    public static final String BUNDLE_EXTRA_NAME = "BUNDLE_EXTRA_NAME";
+    public static final String BUNDLE_EXTRA_AVATAR_URL = "BUNDLE_EXTRA_AVATAR_URL";
+
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours = items;
     }
@@ -48,12 +52,16 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-      //utilisateur clique sur un voisin
+      // user clicks on a neighbour, the new activity launches
+        // id, name and avatarUrl  are sent to the new activity with puExtra()
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent detail_intent = new Intent(context, NeighbourDetailActivity.class);
+                detail_intent.putExtra(BUNDLE_EXTRA_ID, mNeighbours.get(position).getId());
+                detail_intent.putExtra(BUNDLE_EXTRA_NAME, mNeighbours.get(position).getName());
+                detail_intent.putExtra(BUNDLE_EXTRA_AVATAR_URL,mNeighbours.get(position).getAvatarUrl());
                 context.startActivity(detail_intent);
             }
         });

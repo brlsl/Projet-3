@@ -2,4 +2,11 @@
     <string name="app_name">Entrevoisins</string>
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
+    <string name="neighbour_name">Neighbour name</string>
+    <string name="phone_number">01 42 92 81 00</string>
+    <string name="social_media_links">www.facebook.com/example www.instagram.com/example www.twitter.com/example</string>
+    <string name="about">A propos de moi</string>
+    <string name="biography">Dark Vador. Seigneur Noir des Sith. Bras droit de l\'Empereur Palpatine. Exterminateur sans merci des derniers membres de l\'Ordre Jedi. Créature mi-homme, mi-machine engoncée dans une armure noire devenue symbole de peur et de mort. Peu de gens le savent, mais Dark Vador ne fut pas toujours un servant du mal. Avant de jurer allégeance à Dark Sidious, il se nommait Anakin Skywalker, valeureux Chevalier Jedi de l\'Ancienne République et amoureux de Padmé Amidala. Alors que la Guerre des Clones battait encore son plein et que le jeune Anakin menait une lutte acharnée pour défendre la République aux côtés de son maître et ami, Obi-Wan Kenobi, le jeune Chevalier fut la proie de visions terribles de plus en plus fréquentes dans lesquelles il assistait, impuissant, à la mort de sa bien-aimée, Padmé Amidala, avec laquelle il s\'était secrètement marié.</string>
+    <string name="address">55 Rue du Faubourg Saint-Honoré, 75008 Paris</string>
+    <string name="back_button">back button</string>
 </resources>

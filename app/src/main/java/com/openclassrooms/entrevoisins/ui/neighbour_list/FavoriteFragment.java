@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.DeleteFavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
@@ -26,15 +27,9 @@ import java.util.List;
 public class FavoriteFragment extends Fragment {
 
     // declarations
-   private NeighbourApiService mApiService;
-   static List<Neighbour> mFavoriteNeighbours;
-   static RecyclerView mRecyclerView;
-
-
-    // créée par défaut
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
+    private NeighbourApiService mApiService;
+    static List<Neighbour> mFavoriteNeighbours;
+    static RecyclerView mRecyclerView;
 
     //instance of the FavoriteFragment
     public static FavoriteFragment newInstance() {
@@ -53,7 +48,7 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -63,10 +58,10 @@ public class FavoriteFragment extends Fragment {
     }
 
 
-   // init list of favorite Neighbours
+    // init list of favorite Neighbours
     private void initList() {
         mFavoriteNeighbours = mApiService.getFavoriteNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
+        mRecyclerView.setAdapter(new MyFavoriteNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
     }
 
     @Override
@@ -86,7 +81,7 @@ public class FavoriteFragment extends Fragment {
      * @param event
      */
     @Subscribe
-    public void onDeleteNeighbour(DeleteNeighbourEvent event) {
+    public void onDeleteNeighbour(DeleteFavoriteNeighbourEvent event) {
         // delete Neighbour from Favorite List
         mApiService.deleteFavoriteNeighbour(event.neighbour);
         initList();

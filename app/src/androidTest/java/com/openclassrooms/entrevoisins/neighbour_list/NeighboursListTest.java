@@ -7,7 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ActivityListNeighbour;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
 import org.junit.Before;
@@ -33,11 +33,11 @@ public class NeighboursListTest {
     // This is fixed
     private static int ITEMS_COUNT = 12;
 
-    private ListNeighbourActivity mActivity;
+    private ActivityListNeighbour mActivity;
 
     @Rule
-    public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule(ListNeighbourActivity.class);
+    public ActivityTestRule<ActivityListNeighbour> mActivityRule =
+            new ActivityTestRule(ActivityListNeighbour.class);
 
     @Before
     public void setUp() {

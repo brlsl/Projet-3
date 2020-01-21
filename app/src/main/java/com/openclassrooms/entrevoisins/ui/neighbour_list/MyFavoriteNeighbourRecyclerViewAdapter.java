@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteNeighbourEvent;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
+public class MyFavoriteNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
 
@@ -33,14 +32,14 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     public static final String BUNDLE_EXTRA_NAME = "BUNDLE_EXTRA_NAME";
     public static final String BUNDLE_EXTRA_AVATAR_URL = "BUNDLE_EXTRA_AVATAR_URL";
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public MyFavoriteNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_neighbour, parent, false);
+                .inflate(R.layout.fragment_favorite, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,7 +52,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-      // user clicks on a neighbour, the new activity launches
+        // user clicks on a neighbour, the new activity launches
         // id, name and avatarUrl  are sent to the new activity with puExtra()
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +66,14 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             }
         });
 
-        //user deletes neighbour in Myneighbour list and favorites list
+        //user deletes user in favorites list
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
                 EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(neighbour));
             }
         });
+
     }
 
 

@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,14 +17,13 @@ import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyc
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_EXTRA_NAME;
 
-public class NeighbourDetailActivity extends AppCompatActivity {
+public class ActivityNeighbourDetail extends AppCompatActivity {
 
     /** variables */
     ImageButton mBackButton;
     FloatingActionButton mFavoriteAddButton;
     ImageView mAvatar;
     TextView mNameAvatar, mNameCardView;
-    Drawable mStar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +56,14 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         if (FavoriteFragment.mFavoriteNeighbours.contains(newNeighbour))
         {
             mFavoriteAddButton.setEnabled(false);
-            mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
+            mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
+
         }
 
         else
         {
             mFavoriteAddButton.setEnabled(true);
+            mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
 
         }
 
@@ -72,14 +72,14 @@ public class NeighbourDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(NeighbourDetailActivity.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityNeighbourDetail.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
 
                 // désactive le FavoriteAddButton lorsqu'on a cliqué dessus
                 mFavoriteAddButton.setEnabled(false);
-                mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
+                mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
 
                 FavoriteFragment.mFavoriteNeighbours.add(newNeighbour);
-                FavoriteFragment.mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(FavoriteFragment.mFavoriteNeighbours));
+                FavoriteFragment.mRecyclerView.setAdapter(new MyFavoriteNeighbourRecyclerViewAdapter(FavoriteFragment.mFavoriteNeighbours));
 
                 }
         });

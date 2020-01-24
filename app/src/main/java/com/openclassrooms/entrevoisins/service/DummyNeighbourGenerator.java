@@ -27,7 +27,9 @@ public abstract class DummyNeighbourGenerator {
 
     // liste de favoris crée
     public static List<Neighbour> FAVORITE_NEIGHBOURS = Arrays.asList(
-
+            new Neighbour(3, "Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f"),
+            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e"),
+            new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d")
     );
 
     static List<Neighbour> generateNeighbours() {

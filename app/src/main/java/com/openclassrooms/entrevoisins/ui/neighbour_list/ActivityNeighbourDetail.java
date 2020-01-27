@@ -32,7 +32,7 @@ public class ActivityNeighbourDetail extends AppCompatActivity {
 
         /** FindViewbyID */
         mBackButton = findViewById(R.id.back_button);
-        mFavoriteAddButton = findViewById(R.id.favorite_add_floating_btn);
+        mFavoriteAddButton = findViewById(R.id.add_favorite_floating_btn);
         mAvatar = findViewById(R.id.neighbour_avatar);
         mNameAvatar = findViewById(R.id.neighbour_name_avatar);
         mNameCardView = findViewById(R.id.neighbour_name_cardview);

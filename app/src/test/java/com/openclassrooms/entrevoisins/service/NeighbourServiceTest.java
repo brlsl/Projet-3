@@ -56,10 +56,10 @@ public class NeighbourServiceTest {
 
     @Test
     public void getFavoriteNeighbourWithSuccess(){
-        // there are 3 neighbours in the list to verify this
-        List <Neighbour> neighbour = service.getFavoriteNeighbours();
-        List <Neighbour> expectedFavoriteNeighbours = DummyNeighbourGenerator.FAVORITE_NEIGHBOURS;
-        assertThat(neighbour, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedFavoriteNeighbours.toArray()));
+        Neighbour favoriteNeighbourAdded = service.getNeighbours().get(0);
+        List<Neighbour> favoriteList = service.getFavoriteNeighbours();
+        favoriteList.add(favoriteNeighbourAdded);
+        assertTrue(favoriteList.contains(favoriteNeighbourAdded));
     }
 
     @Test

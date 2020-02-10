@@ -11,7 +11,7 @@ import com.openclassrooms.entrevoisins.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivityListNeighbour extends AppCompatActivity {
+public class ListNeighbourActivity extends AppCompatActivity {
 
     // UI Components
     @BindView(R.id.tabs)

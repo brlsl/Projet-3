@@ -54,10 +54,10 @@ public class NeighbourServiceTest {
     // we ensure the neighbour is added to favorite list
     @Test
     public void addNeighbourToFavoriteListWithSuccess(){
-        Neighbour neighbour1 = service.getNeighbours().get(0);
+        Neighbour neighbour = service.getNeighbours().get(0);
         List <Neighbour> favoriteList = service.getFavoriteNeighbours();
-        favoriteList.add(neighbour1);
-        assertTrue(favoriteList.contains(neighbour1));
+        favoriteList.add(neighbour);
+        assertTrue(favoriteList.contains(neighbour));
     }
 
     @Test

@@ -17,13 +17,10 @@ import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyc
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_EXTRA_NAME;
 
-public class ActivityNeighbourDetail extends AppCompatActivity {
+public class NeighbourDetailActivity extends AppCompatActivity {
 
-    // declaration variables
-    private ImageButton mBackButton;
-    private FloatingActionButton mfavoriteAddButton_FAB;
-    private ImageView mNeighbourAvatar;
-    private TextView mNameAvatar, mNameCardView;
+    // declaration variable
+    private FloatingActionButton mFavoriteAddButton_FAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +32,14 @@ public class ActivityNeighbourDetail extends AppCompatActivity {
     }
 
     public void loadDetail(){
+        //declarations
+        ImageButton mBackButton;
+        ImageView mNeighbourAvatar;
+        TextView mNameAvatar, mNameCardView;
+
         //referencing
         mBackButton = findViewById(R.id.back_button);
-        mfavoriteAddButton_FAB = findViewById(R.id.add_favorite_floating_btn);
+        mFavoriteAddButton_FAB = findViewById(R.id.add_favorite_floating_btn);
         mNeighbourAvatar = findViewById(R.id.neighbour_avatar);
         mNameAvatar = findViewById(R.id.neighbour_name_avatar);
         mNameCardView = findViewById(R.id.neighbour_name_cardview);
@@ -57,14 +59,14 @@ public class ActivityNeighbourDetail extends AppCompatActivity {
     }
 
     public void unclickableFAB(){
-        mfavoriteAddButton_FAB.setEnabled(false);
-        mfavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
-        mfavoriteAddButton_FAB.setElevation(20);
+        mFavoriteAddButton_FAB.setEnabled(false);
+        mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
+        mFavoriteAddButton_FAB.setElevation(20);
     }
 
     public void clickableFAB(){
-        mfavoriteAddButton_FAB.setEnabled(true);
-        mfavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
+        mFavoriteAddButton_FAB.setEnabled(true);
+        mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
     }
 
     public void manageClickOnFAB(){
@@ -79,10 +81,10 @@ public class ActivityNeighbourDetail extends AppCompatActivity {
             clickableFAB();
 
         // user clicks add a neighbour in favorite
-        mfavoriteAddButton_FAB.setOnClickListener(new View.OnClickListener() {
+        mFavoriteAddButton_FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ActivityNeighbourDetail.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
+                Toast.makeText(NeighbourDetailActivity.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
 
                 // FavoriteAddButton is disabled when clicked
                 unclickableFAB();

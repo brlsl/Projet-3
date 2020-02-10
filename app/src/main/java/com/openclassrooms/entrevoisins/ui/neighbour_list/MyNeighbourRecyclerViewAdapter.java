@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Neighbour> mNeighbours;
+    private final List<Neighbour> mNeighbours_list;
 
     //constants for the method putExtra()
     public static final String BUNDLE_EXTRA_ID = "BUNDLE_EXTRA_ID";
@@ -34,7 +34,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     public static final String BUNDLE_EXTRA_AVATAR_URL = "BUNDLE_EXTRA_AVATAR_URL";
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
-        mNeighbours = items;
+        mNeighbours_list = items;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Neighbour neighbour = mNeighbours.get(position);
+        Neighbour neighbour = mNeighbours_list.get(position);
         holder.mNeighbourName.setText(neighbour.getName());
         Glide.with(holder.mNeighbourAvatar.getContext())
                 .load(neighbour.getAvatarUrl())
@@ -60,14 +60,15 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent detail_intent = new Intent(context, ActivityNeighbourDetail.class);
-                detail_intent.putExtra(BUNDLE_EXTRA_ID, mNeighbours.get(position).getId());
-                detail_intent.putExtra(BUNDLE_EXTRA_NAME, mNeighbours.get(position).getName());
-                detail_intent.putExtra(BUNDLE_EXTRA_AVATAR_URL,mNeighbours.get(position).getAvatarUrl());
+                detail_intent.putExtra(BUNDLE_EXTRA_ID, mNeighbours_list.get(position).getId());
+                detail_intent.putExtra(BUNDLE_EXTRA_NAME, mNeighbours_list.get(position).getName());
+                detail_intent.putExtra(BUNDLE_EXTRA_AVATAR_URL, mNeighbours_list.get(position).getAvatarUrl());
                 context.startActivity(detail_intent);
             }
         });
 
-        //user deletes neighbour in Myneighbour list and favorites list
+        //when user clicks on delete button in the neighbour list,
+        // it deletes the favorite neighbour and the favorite neighbour
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +81,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     @Override
     public int getItemCount() {
-        return mNeighbours.size();
+        return mNeighbours_list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

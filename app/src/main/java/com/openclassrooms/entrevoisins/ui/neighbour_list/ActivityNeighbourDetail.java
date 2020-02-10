@@ -19,71 +19,78 @@ import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyc
 
 public class ActivityNeighbourDetail extends AppCompatActivity {
 
-    /** variables */
-    ImageButton mBackButton;
-    FloatingActionButton mFavoriteAddButton;
-    ImageView mAvatar;
-    TextView mNameAvatar, mNameCardView;
+    // declaration variables
+    private ImageButton mBackButton;
+    private FloatingActionButton mfavoriteAddButton_FAB;
+    private ImageView mNeighbourAvatar;
+    private TextView mNameAvatar, mNameCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_detail);
 
-        /** FindViewbyID */
+        loadDetail();
+        manageClickOnFAB();
+    }
+
+    public void loadDetail(){
+        //referencing
         mBackButton = findViewById(R.id.back_button);
-        mFavoriteAddButton = findViewById(R.id.add_favorite_floating_btn);
-        mAvatar = findViewById(R.id.neighbour_avatar);
+        mfavoriteAddButton_FAB = findViewById(R.id.add_favorite_floating_btn);
+        mNeighbourAvatar = findViewById(R.id.neighbour_avatar);
         mNameAvatar = findViewById(R.id.neighbour_name_avatar);
         mNameCardView = findViewById(R.id.neighbour_name_cardview);
 
-        /** when user clicks on back button */
-        mBackButton.setOnClickListener(view -> finish());
+        // load avatar
+        Glide
+                .with(mNeighbourAvatar.getContext())
+                .load(getIntent().getStringExtra(BUNDLE_EXTRA_AVATAR_URL))
+                .into(mNeighbourAvatar);
 
-        /** load names */
+        // load names
         mNameAvatar.setText(getIntent().getStringExtra(BUNDLE_EXTRA_NAME));
         mNameCardView.setText(getIntent().getStringExtra(BUNDLE_EXTRA_NAME));
 
-        /** load avatar */
-        Glide
-                .with(mAvatar.getContext())
-                .load(getIntent().getStringExtra(BUNDLE_EXTRA_AVATAR_URL))
-                .into(mAvatar);
-
-
-        Neighbour newNeighbour = new Neighbour(getIntent().getIntExtra(BUNDLE_EXTRA_ID,0), getIntent().getStringExtra(BUNDLE_EXTRA_NAME), getIntent().getStringExtra(BUNDLE_EXTRA_AVATAR_URL));
-
-        if (FavoriteFragment.mFavoriteNeighbours.contains(newNeighbour))
-        {
-            mFavoriteAddButton.setEnabled(false);
-            mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
-
-        }
-
-        else
-        {
-            mFavoriteAddButton.setEnabled(true);
-            mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
-
-        }
-
-        // user clicks adds a neighbour in favorite
-        mFavoriteAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(ActivityNeighbourDetail.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
-
-                // désactive le FavoriteAddButton lorsqu'on a cliqué dessus
-                mFavoriteAddButton.setEnabled(false);
-                mFavoriteAddButton.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
-
-                FavoriteFragment.mFavoriteNeighbours.add(newNeighbour);
-                FavoriteFragment.mRecyclerView.setAdapter(new MyFavoriteNeighbourRecyclerViewAdapter(FavoriteFragment.mFavoriteNeighbours));
-
-                }
-        });
-
+        // when user clicks on back button
+        mBackButton.setOnClickListener(view -> finish());
     }
 
+    public void unclickableFAB(){
+        mfavoriteAddButton_FAB.setEnabled(false);
+        mfavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
+        mfavoriteAddButton_FAB.setElevation(20);
+    }
+
+    public void clickableFAB(){
+        mfavoriteAddButton_FAB.setEnabled(true);
+        mfavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
+    }
+
+    public void manageClickOnFAB(){
+        // instantiation with arguments
+        Neighbour newNeighbour = new Neighbour(getIntent().getIntExtra(BUNDLE_EXTRA_ID,0),
+                getIntent().getStringExtra(BUNDLE_EXTRA_NAME), getIntent().getStringExtra(BUNDLE_EXTRA_AVATAR_URL));
+
+        //manage favorite button and make it clickable or not
+        if (FavoriteFragment.mFavoriteNeighbours.contains(newNeighbour))
+            unclickableFAB();
+        else
+            clickableFAB();
+
+        // user clicks add a neighbour in favorite
+        mfavoriteAddButton_FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ActivityNeighbourDetail.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
+
+                // FavoriteAddButton is disabled when clicked
+                unclickableFAB();
+
+                // new neighbour is added to favorite list and the list is refreshed
+                FavoriteFragment.mFavoriteNeighbours.add(newNeighbour);
+                FavoriteFragment.mRecyclerView.setAdapter(new MyFavoriteNeighbourRecyclerViewAdapter(FavoriteFragment.mFavoriteNeighbours));
+            }
+        });
+    }
 }

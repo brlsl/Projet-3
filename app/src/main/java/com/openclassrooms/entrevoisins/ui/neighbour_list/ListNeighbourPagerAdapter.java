@@ -38,3 +38,4 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 }
+

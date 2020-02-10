@@ -11,14 +11,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.List;
-import java.util.Random;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -45,6 +40,7 @@ public class NeighbourServiceTest {
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
     }
 
+    // we ensure the neighbour is removed from neighbour and favorite lists
     @Test
     public void deleteNeighbourWithSuccess() {
         // get an existing neighbour (first one)
@@ -52,33 +48,21 @@ public class NeighbourServiceTest {
         // delete the neighbour
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
+        assertFalse(service.getFavoriteNeighbours().contains(neighbourToDelete));
     }
 
-    @Test
-    public void getFavoriteNeighbourWithSuccess(){
-        Neighbour favoriteNeighbourAdded = service.getNeighbours().get(0);
-        List<Neighbour> favoriteList = service.getFavoriteNeighbours();
-        favoriteList.add(favoriteNeighbourAdded);
-        assertTrue(favoriteList.contains(favoriteNeighbourAdded));
-    }
-
+    // we ensure the neighbour is added to favorite list
     @Test
     public void addNeighbourToFavoriteListWithSuccess(){
-        //get an existing neighbour (first one)
         Neighbour neighbour1 = service.getNeighbours().get(0);
-        //instantiate favorite List
         List <Neighbour> favoriteList = service.getFavoriteNeighbours();
-        //add to favorite list
         favoriteList.add(neighbour1);
-        //verify with boolean that favorite list contains neighbour1
         assertTrue(favoriteList.contains(neighbour1));
-
     }
 
     @Test
     public void deleteOnlyFavoriteNeighbourWithSuccess(){
-        // get an existing neighbour
-        Neighbour neighbour = service.getNeighbours().get(7);
+        Neighbour neighbour = service.getNeighbours().get(0);
         // get neighbour list and favorite list
         List <Neighbour> neighboursList = service.getNeighbours();
         List <Neighbour> favoriteNeighbourList = service.getFavoriteNeighbours();
@@ -91,10 +75,4 @@ public class NeighbourServiceTest {
         assertFalse(service.getFavoriteNeighbours().contains(neighbour));
         assertTrue(service.getNeighbours().contains(neighbour));
     }
-
-
-
-
-
-
 }

@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ActivityListNeighbour;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
@@ -15,11 +16,11 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
@@ -32,7 +33,6 @@ import static org.hamcrest.core.IsNull.notNullValue;
  */
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
-
     // This is fixed
     private static int ITEMS_COUNT = 12;
 
@@ -47,7 +47,6 @@ public class NeighboursListTest {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
     }
-
     /**
      * We ensure that our recyclerview is displaying at least on item
      */
@@ -57,7 +56,6 @@ public class NeighboursListTest {
         onView(withId(R.id.list_neighbour))
                 .check(matches(hasMinimumChildCount(1)));
     }
-
     /**
      * When we delete an item, the item is no more shown
      */
@@ -72,21 +70,24 @@ public class NeighboursListTest {
         onView(withId(R.id.list_neighbour)).check(withItemCount(ITEMS_COUNT-1));
     }
 
+    // we ensure the neighbour detail activity launches
     @Test
     public void activityNeighbourDetail_isLaunched() {
         onView(withId(R.id.list_neighbour))
                 .perform(actionOnItemAtPosition(0, click()));
     }
 
+    // we ensure the correct user name is displayed
     @Test
     public void activityNeighbourDetail_userNameIsDisplayed(){
         onView(withId(R.id.list_neighbour))
                 .perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.neighbour_name_avatar))
-                .check(matches(isDisplayed()));
+                .check(matches(withText(DummyNeighbourGenerator.DUMMY_NEIGHBOURS.get(0).getName())));
 
     }
 
+    // we ensure there is only favorite neighbour in favorite fragment
     @Test
     public void favoriteFragmentOnlyDisplaysFavoriteNeighbour(){
         onView(withId(R.id.list_neighbour))
@@ -95,6 +96,8 @@ public class NeighboursListTest {
                 .perform(click());
         onView(withId(R.id.back_button))
                 .perform(click());
+        onView(withId(R.id.list_neighbour))
+                .perform(swipeLeft());
         onView(withId(R.id.list_favorite))
                 .check(matches(hasMinimumChildCount(1)));
     }

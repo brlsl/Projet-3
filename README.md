@@ -4,7 +4,7 @@ Ce dépôt contient une mini-application pour le P3 du parcours **Grande École 
 
 1. Télécharger le dossier de l'application depuis le lien Github au format .zip
 2. Décompresser le dossier de l'application et le copier sur votre ordinateur 
-2. Exécuter Android Studio
+2. Ouvrir Android Studio
 4. Importer le projet dans Android Studio avec le chemin suivant: File -> New -> Import Project
 5. Choisir le chemin du dossier de l'application sur votre ordinateur
 6. Démarrer l'application avec le boutton "Run"

@@ -9,4 +9,7 @@
     <string name="biography">Bonjour, je souhaiterai faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m\'accompagner! J\'aime les jeux de cartes tels la belote et le tarot.</string>>
     <string name="address">Saint pierre du mont à 5km</string>
     <string name="back_button">back button</string>
+    <string name="gps_image">gps image</string>
+    <string name="phone_image">phone image</string>
+    <string name="medias_image">medias image</string>
 </resources>

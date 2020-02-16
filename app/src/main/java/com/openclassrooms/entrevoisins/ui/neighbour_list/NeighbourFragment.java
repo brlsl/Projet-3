@@ -29,12 +29,22 @@ public class NeighbourFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 
+    private String mFragmentPosition;
+    private static final String KEY = "KEY";
+
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(String chooseFragment) {
+        //create new fragment
         NeighbourFragment fragment = new NeighbourFragment();
+
+        // create bundle and add data
+        Bundle argument = new Bundle();
+        argument.putString(KEY, chooseFragment);
+        fragment.setArguments(argument);
+
         return fragment;
     }
 
@@ -52,6 +62,9 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        mFragmentPosition = getArguments().getString(KEY);
+
         initList();
         return view;
     }
@@ -61,8 +74,16 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+
+        if(mFragmentPosition == "neighbour"){
+            mNeighbours = mApiService.getNeighbours();
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        }
+        else {
+            mNeighbours = mApiService.getFavorites();
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        }
+
     }
 
     @Override
@@ -84,7 +105,6 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
-        mApiService.deleteFavoriteNeighbour(event.neighbour);
         initList();
     }
 }

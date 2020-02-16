@@ -96,6 +96,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/gps_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/neighbour_name_cardview"
                 app:srcCompat="@drawable/ic_place_pink_24dp" />
@@ -107,22 +108,24 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@null"
+                android:contentDescription="@string/phone_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gps_img"
                 app:srcCompat="@drawable/ic_phone_pink_24dp" />
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@null"
+                android:contentDescription="@string/medias_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/phone_img_btn"
-                app:srcCompat="@drawable/ic_chat_pink_24dp" />
+                app:srcCompat="@drawable/ic_language_black_24dp" />
 
             <ScrollView
                 android:layout_width="0dp"
@@ -156,7 +159,8 @@
                 <TextView
                     android:id="@+id/number_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/phone_image"
                     android:text="@string/phone_number" />
             </ScrollView>
 
@@ -165,15 +169,15 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton6"
+                app:layout_constraintBottom_toBottomOf="@+id/media"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageButton6"
-                app:layout_constraintTop_toTopOf="@+id/imageButton6">
+                app:layout_constraintStart_toEndOf="@+id/media"
+                app:layout_constraintTop_toTopOf="@+id/media">
 
                 <TextView
                     android:id="@+id/social_media"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/social_media_links" />
             </ScrollView>
 

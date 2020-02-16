@@ -1,6 +1,7 @@
 
 package com.openclassrooms.entrevoisins.neighbour_list;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -21,6 +22,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
@@ -75,6 +77,8 @@ public class NeighboursListTest {
     public void activityNeighbourDetail_isLaunched() {
         onView(withId(R.id.list_neighbour))
                 .perform(actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.neighbour_avatar))
+                .check(matches(ViewMatchers.isDisplayed()));
     }
 
     // we ensure the correct user name is displayed
@@ -87,7 +91,7 @@ public class NeighboursListTest {
 
     }
 
-    // we ensure there is only favorite neighbour in favorite fragment
+    // we ensure there is only neighbourIsFavorite neighbour in neighbourIsFavorite fragment
     @Test
     public void favoriteFragmentOnlyDisplaysFavoriteNeighbour(){
         onView(withId(R.id.list_neighbour))

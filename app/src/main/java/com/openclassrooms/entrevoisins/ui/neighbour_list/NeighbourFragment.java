@@ -30,7 +30,7 @@ public class NeighbourFragment extends Fragment {
 
 
     private String mFragmentPosition;
-    private static final String KEY = "KEY";
+    private static final String KEY_FRAGMENT = "KEY_FRAGMENT";
 
     /**
      * Create and return a new instance
@@ -42,7 +42,7 @@ public class NeighbourFragment extends Fragment {
 
         // create bundle and add data
         Bundle argument = new Bundle();
-        argument.putString(KEY, chooseFragment);
+        argument.putString(KEY_FRAGMENT, chooseFragment);
         fragment.setArguments(argument);
 
         return fragment;
@@ -63,7 +63,8 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        mFragmentPosition = getArguments().getString(KEY);
+
+        mFragmentPosition = getArguments().getString(KEY_FRAGMENT);
 
         initList();
         return view;
@@ -74,8 +75,7 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-
-        if(mFragmentPosition == "neighbour"){
+        if(mFragmentPosition.equals("neighbour")){
             mNeighbours = mApiService.getNeighbours();
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
         }
@@ -90,6 +90,7 @@ public class NeighbourFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        initList();
     }
 
     @Override

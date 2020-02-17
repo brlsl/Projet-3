@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,14 +25,10 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours_list;
+    public static final String KEY_NEIGHBOUR = "KEY_NEIGHBOUR";
 
-    //constants for the method putExtra()
-    static final String BUNDLE_EXTRA_ID = "BUNDLE_EXTRA_ID";
-    static final String BUNDLE_EXTRA_NAME = "BUNDLE_EXTRA_NAME";
-    static final String BUNDLE_EXTRA_AVATAR_URL = "BUNDLE_EXTRA_AVATAR_URL";
-    static final String BUNDLE_EXTRA_IS_FAVORITE = "BUNDLE_EXTRA_IS_FAVORITE";
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours_list = items;
     }
 
@@ -54,17 +49,13 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .into(holder.mNeighbourAvatar);
 
       // user clicks on a neighbour row, the new activity launches
-        // id, name and avatarUrl  are sent to the new activity with puExtra()
+        // the neighbour informations are sent to the new activity with puExtra()
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = view.getContext();
-                Intent detail_intent = new Intent(context, NeighbourDetailActivity.class);
-                detail_intent.putExtra(BUNDLE_EXTRA_ID, mNeighbours_list.get(position).getId());
-                detail_intent.putExtra(BUNDLE_EXTRA_NAME, mNeighbours_list.get(position).getName());
-                detail_intent.putExtra(BUNDLE_EXTRA_AVATAR_URL, mNeighbours_list.get(position).getAvatarUrl());
-                detail_intent.putExtra(BUNDLE_EXTRA_IS_FAVORITE, mNeighbours_list.get(position).isFavoriteBoolean());
-                context.startActivity(detail_intent);
+                Intent intent = new Intent(view.getContext(), NeighbourDetailActivity.class);
+                intent.putExtra(KEY_NEIGHBOUR, neighbour);
+                view.getContext().startActivity(intent);
             }
         });
 

@@ -1,11 +1,14 @@
 package com.openclassrooms.entrevoisins.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
 /**
  * Model object representing a Neighbour
  */
-public class Neighbour {
+public class Neighbour implements Parcelable {
 
     /** Identifier */
     private Integer id;
@@ -17,8 +20,6 @@ public class Neighbour {
     private String avatarUrl;
 
     private boolean favoriteBoolean;
-
-
 
     /**
      * Constructor
@@ -32,6 +33,40 @@ public class Neighbour {
         this.name = name;
         this.avatarUrl = avatarUrl;
         this.favoriteBoolean = favoriteBoolean;
+    }
+
+    protected Neighbour(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        avatarUrl = in.readString();
+        favoriteBoolean = in.readByte() != 0;
+    }
+
+    public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>() {
+        @Override
+        public Neighbour createFromParcel(Parcel in) {
+            return new Neighbour(in);
+        }
+
+        @Override
+        public Neighbour[] newArray(int size) {
+            return new Neighbour[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(avatarUrl);
+        // if true favorite = 1, else = 0
+        parcel.writeInt(favoriteBoolean ? 1 : 0);
+
     }
 
     public Integer getId() {
@@ -62,7 +97,7 @@ public class Neighbour {
         this.favoriteBoolean = favoriteBoolean;
     }
 
-    public boolean isFavoriteBoolean() {
+    public boolean favoriteStatus() {
         return favoriteBoolean;
     }
 
@@ -78,4 +113,6 @@ public class Neighbour {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }

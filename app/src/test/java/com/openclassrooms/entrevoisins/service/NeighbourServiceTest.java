@@ -48,30 +48,23 @@ public class NeighbourServiceTest {
         // delete the neighbour
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
-        //assertFalse(service.getFavorites().contains(neighbourToDelete));
     }
 
     // we ensure the neighbour is added to neighbourIsFavorite list
     @Test
     public void addNeighbourToFavoriteListWithSuccess(){
-        Neighbour neighbour = service.getNeighbours().get(5);
+        Neighbour neighbour = service.getNeighbours().get(0);
         service.addFavorite(neighbour);
-        service.neighbourIsFavorite(neighbour);
+        //service.neighbourIsFavorite(neighbour);
+        assertTrue(service.getFavorites().contains(neighbour));
     }
 
     @Test
-    public void deleteOnlyFavoriteNeighbourWithSuccess(){
+    public void removeNeighbourToFavoriteListWithSuccess(){
         Neighbour neighbour = service.getNeighbours().get(0);
-        // get neighbour list and neighbourIsFavorite list
-        List <Neighbour> neighboursList = service.getNeighbours();
-        List <Neighbour> favoriteNeighbourList = service.getFavorites();
-        // add the neighbor in both list
-        neighboursList.add(neighbour);
-        favoriteNeighbourList.add(neighbour);
-        // delete the neighbour in the neighbourIsFavorite list
-        //service.deleteFavoriteNeighbour(neighbour);
-        // check if the neighbour is only deleted in the neighbourIsFavorite list
+        service.addFavorite(neighbour);
+        service.removeFavorite(neighbour);
+
         assertFalse(service.getFavorites().contains(neighbour));
-        assertTrue(service.getNeighbours().contains(neighbour));
     }
 }

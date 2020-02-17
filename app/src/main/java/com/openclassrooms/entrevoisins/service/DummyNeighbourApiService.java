@@ -25,7 +25,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
         List<Neighbour> favoriteList = new ArrayList<>();
         for(int i=0; i < neighbours.size(); i++){
             Neighbour neighbour = neighbours.get(i);
-            if (neighbour.favoriteStatus()){
+            if (neighbour.isFavorite()){
                 favoriteList.add(neighbour);
             }
         }
@@ -38,11 +38,6 @@ public class DummyNeighbourApiService implements NeighbourApiService {
     @Override
     public void deleteNeighbour(Neighbour neighbour) {
         neighbours.remove(neighbour);
-    }
-
-    @Override
-    public void neighbourIsFavorite(Neighbour neighbour) {
-        neighbour.setFavoriteBoolean(true);
     }
 
     @Override

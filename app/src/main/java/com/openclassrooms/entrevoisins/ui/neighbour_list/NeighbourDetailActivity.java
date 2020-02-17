@@ -15,19 +15,14 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-import java.util.List;
-
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.KEY_NEIGHBOUR;
-
 
 public class NeighbourDetailActivity extends AppCompatActivity {
 
     // declaration variable
     private FloatingActionButton mFavoriteAddButton_FAB;
     private NeighbourApiService mApiService;
-    Neighbour mNeighbour;
-
-
+    private Neighbour mNeighbour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +31,6 @@ public class NeighbourDetailActivity extends AppCompatActivity {
 
         mNeighbour = getIntent().getParcelableExtra(KEY_NEIGHBOUR);
         mApiService = DI.getNeighbourApiService();
-
 
         loadDetail();
         manageClickOnFAB();
@@ -74,40 +68,32 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         });
 
     }
-
-    public void unclickableFAB(){
-
-        mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
-        mFavoriteAddButton_FAB.setEnabled(false);
-        mFavoriteAddButton_FAB.setElevation(20);
-    }
-
    public void manageClickOnFAB(){
-
-       //manage neighbourIsFavorite button and make it clickable or not
-
-       if (mNeighbour.favoriteStatus()){
+       if (mNeighbour.isFavorite()){
            mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
-           mFavoriteAddButton_FAB.setEnabled(false);
            mFavoriteAddButton_FAB.setElevation(20);
-
        }
 
-       else if(!mNeighbour.favoriteStatus()) {
+       else if(!mNeighbour.isFavorite())
            mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
-           mFavoriteAddButton_FAB.setEnabled(true);
-
-       }
 
        mFavoriteAddButton_FAB.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               if (mNeighbour.isFavorite()){
+                   mApiService.removeFavorite(mNeighbour);
+                   mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
+                   mNeighbour.setFavoriteBoolean(false);
+                   Toast.makeText(NeighbourDetailActivity.this, "Le contact a été retiré des favoris", Toast.LENGTH_SHORT).show();
 
-               mApiService.addFavorite(mNeighbour);
-               unclickableFAB();
-
-               Toast.makeText(NeighbourDetailActivity.this,"Le contact a été ajouté aux favoris",Toast.LENGTH_SHORT).show();
-
+               }
+               else if(!mNeighbour.isFavorite()){
+                   mApiService.addFavorite(mNeighbour);
+                   mFavoriteAddButton_FAB.setImageDrawable(getDrawable(R.drawable.ic_star_yellow_24dp));
+                   mFavoriteAddButton_FAB.setElevation(20);
+                   mNeighbour.setFavoriteBoolean(true);
+                   Toast.makeText(NeighbourDetailActivity.this, "Le contact a été ajouté aux favoris", Toast.LENGTH_SHORT).show();
+               }
            }
        });
     }

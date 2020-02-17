@@ -22,9 +22,11 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
@@ -54,7 +56,8 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
-        onView(withId(R.id.list_neighbour))
+
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed()))
                 .check(matches(hasMinimumChildCount(1)));
     }
     /**
@@ -63,18 +66,18 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
-        onView(withId(R.id.list_neighbour)).check(withItemCount(ITEMS_COUNT));
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed())).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
-        onView(withId(R.id.list_neighbour))
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed()))
                 .perform(actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(withId(R.id.list_neighbour)).check(withItemCount(ITEMS_COUNT-1));
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
     }
 
     // we ensure the neighbour detail activity launches
     @Test
     public void activityNeighbourDetail_isLaunched() {
-        onView(withId(R.id.list_neighbour))
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed()))
                 .perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.neighbour_avatar))
                 .check(matches(ViewMatchers.isDisplayed()));
@@ -83,26 +86,25 @@ public class NeighboursListTest {
     // we ensure the correct user name is displayed
     @Test
     public void activityNeighbourDetail_userNameIsDisplayed(){
-        onView(withId(R.id.list_neighbour))
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed()))
                 .perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.neighbour_name_avatar))
                 .check(matches(withText(DummyNeighbourGenerator.DUMMY_NEIGHBOURS.get(0).getName())));
-
     }
 
     // we ensure there is only neighbourIsFavorite neighbour in neighbourIsFavorite fragment
     @Test
     public void favoriteFragmentOnlyDisplaysFavoriteNeighbour(){
-        onView(withId(R.id.list_neighbour))
+        onView(allOf(withId(R.id.list_neighbour), isDisplayed()))
                 .perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.add_favorite_floating_btn))
                 .perform(click());
         onView(withId(R.id.back_button))
                 .perform(click());
-        onView(withId(R.id.list_neighbour))
+        onView(allOf(withId(R.id.list_neighbour),isDisplayed()))
                 .perform(swipeLeft());
-        //onView(withId(R.id.list_favorite))
-               // .check(matches(hasMinimumChildCount(1)));
+        onView(allOf(withId(R.id.item_list_name), isDisplayed()))
+                .check(matches(withText(DummyNeighbourGenerator.DUMMY_NEIGHBOURS.get(0).getName())));
     }
 
 }
